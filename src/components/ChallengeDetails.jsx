@@ -14,6 +14,13 @@ export const ChallengeDetails = ({ date, data, onClose }) => {
     });
   };
 
+  const longDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const getStatusConfig = (status) => {
     switch (status) {
       case 'completed': return { icon: CheckCircle, label: 'Completed', color: '#22c55e' };
@@ -61,7 +68,7 @@ export const ChallengeDetails = ({ date, data, onClose }) => {
             </div>
 
             <div className="detail-item" style={{ justifyContent: 'center' }}>
-              <Link to={`/challenge/${date.toISOString().split('T')[0]}`} className="btn-primary">
+              <Link to={`/challenge/${longDate(date)}`} className="btn-primary">
                 View Challenge
               </Link>
             </div>
@@ -69,7 +76,7 @@ export const ChallengeDetails = ({ date, data, onClose }) => {
         ) : (
           <div className="detail-item no-data">
             <p>No challenge logged for this day.</p>
-            <Link to={`/challenge/${date.toISOString().split('T')[0]}`} className="btn-primary">
+            <Link to={`/challenge/${longDate(date)}`} className="btn-primary">
               Add Challenge
             </Link>
           </div>
