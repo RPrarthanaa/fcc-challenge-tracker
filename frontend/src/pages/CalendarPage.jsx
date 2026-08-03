@@ -17,7 +17,7 @@ const mockChallengeDays = {
 
 export const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 5)); // June 2026
+  const [currentMonth, setCurrentMonth] = useState(new Date()); // Current month
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
