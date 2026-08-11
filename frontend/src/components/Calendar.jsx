@@ -74,9 +74,13 @@ export const Calendar = ({ currentMonth, onMonthChange, onDateSelect, challengeD
     for (let day = 1; day <= daysInMonth; day++) {
       const dateStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const dayData = challengeData[dateStr];
-      const status = dayData?.Status;
+      let status = dayData?.Status;
       const isCurrent = isCurrentDay(currentMonth.getFullYear(), currentMonth.getMonth(), day);
       const isSelected = isSelectedDay(currentMonth.getFullYear(), currentMonth.getMonth(), day, selectedDate);
+
+      if (status !== "Completed" && status !== "In Progress" && !isCurrent && new Date(dateStr) < new Date()) {
+        status = "Missed";
+      }
 
       days.push(
         <div

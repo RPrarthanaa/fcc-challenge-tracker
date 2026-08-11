@@ -46,6 +46,23 @@ export const ChallengePage = () => {
     setQuestion(newQuestion);
   };
 
+  const handleStatusUpdate = async (newStatus) => {
+    try {
+      const response = await challengeApi.updateChallenge(date, {
+        key: "Status",
+        value: newStatus
+      });
+
+      if (response.data.success) {
+        console.log("Status updated successfully");
+        setStatus(newStatus);
+      }
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+    
+  };
+
 
   const longDate = new Date(date).toLocaleDateString('en-US', {
     month: 'long', 
@@ -106,7 +123,10 @@ export const ChallengePage = () => {
       </div>
 
       <div>
-        <button className={`status-btn ${status === "In Progress" ? 'complete' : 'in_progress'}`}>
+        <button 
+          className={`status-btn ${status === "In Progress" ? 'complete' : 'in_progress'}`} 
+          onClick={() => handleStatusUpdate(status === "In Progress" ? "Completed" : "In Progress" )}
+        >
           Mark As {(status === "In Progress") ? "Complete" : "In Progress"}
         </button>
       </div>
