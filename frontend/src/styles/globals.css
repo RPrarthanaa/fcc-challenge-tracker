@@ -632,6 +632,75 @@ body {
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
+/* Editable Title Styles */
+.title-display {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.title-input-editable {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  border: none;
+  border-bottom: 2px solid var(--primary);
+  background: transparent;
+  color: var(--text-primary);
+  outline: none;
+  padding: 0;
+  width: 70%;
+  min-width: 200px;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.title-input-editable:focus {
+  border-bottom-color: var(--gradient-start);
+  box-shadow: 0 2px 0 0 rgba(99, 102, 241, 0.2);
+}
+
+.title-input-editable::placeholder {
+  color: var(--text-secondary);
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+/* Hide the Pencil icon when editing */
+.edit-btn .edit-active {
+  color: var(--primary);
+  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: 50%;
+  padding: 4px;
+  opacity: 0;
+}
+
+/* Add a subtle animation for the edit button */
+.edit-btn {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn:hover {
+  background-color: var(--bg-secondary);
+  transform: scale(1.05);
+}
+
+.edit-btn:active {
+  transform: scale(0.95);
+}
+
+.header-text {
+  flex: 1;
+  min-width: 0;
+}
+
 /* Challenge Page */
 .challenge-content{
   text-align: left;
@@ -655,12 +724,19 @@ body {
   border-radius: 0.25rem;
   color: var(--text-secondary);
 }
-.header-text {
-  flex: 1;
-}
 
 .challenge-question {
   margin-bottom: 1.5rem;
+  flex: 1;
+  min-width: 0;
+}
+.question-input-editable {
+  flex: 1;
+  min-width: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
 }
 
 .code-card {
@@ -698,6 +774,27 @@ body {
   color: #727275;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.status-btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.complete { background: green; }
+.complete:hover { background: #22c55e; }
+.in_progress { background: blue; }
+.in_progress:hover { background: rgb(130, 130, 245); }
+.status-btn:hover {
+  transform: translateY(-2px);
 }
 
 /* Calendar Summary */
@@ -817,5 +914,38 @@ body {
   .calendar-day {
     aspect-ratio: 1;
     font-size: 0.75rem;
+  }
+}
+
+/* Responsive styles for editable title */
+@media (max-width: 768px) {
+  .title-display,
+  .title-input-editable {
+    font-size: 1.5rem;
+  }
+  
+  .challenge-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .header-text {
+    order: 1;
+    flex: 1 1 100%;
+  }
+  
+  .back-btn {
+    order: 0;
+  }
+  
+  .edit-btn {
+    order: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-display,
+  .title-input-editable {
+    font-size: 1.25rem;
   }
 }
