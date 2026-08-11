@@ -56,7 +56,7 @@ router.post("/calendar/:date", async (req, res) => {
     const { title, question, status } = req.body;
 
     try {
-        const [result] = await pool.query("INSERT INTO daily_challenges (date, title, question, status) VALUES (?, ?, ?, ?)", [date, title, question, status]);
+        const [result] = await pool.query("INSERT INTO daily_challenges (Date, Title, Question, Status) VALUES (?, ?, ?, ?)", [date, title, question, status]);
 
         res.json({
             success: true,
