@@ -7,9 +7,9 @@ const getStatusClass = (status, isCurrentDay, isSelected) => {
   if (isCurrentDay) return 'calendar-day current';
   if (!status) return 'calendar-day';
   switch (status) {
-    case 'completed': return 'calendar-day completed';
-    case 'in-progress': return 'calendar-day in-progress';
-    case 'missed': return 'calendar-day missed';
+    case 'Completed': return 'calendar-day completed';
+    case 'In Progress': return 'calendar-day in-progress';
+    case 'Missed': return 'calendar-day missed';
     default: return 'calendar-day';
   }
 };
@@ -17,14 +17,15 @@ const getStatusClass = (status, isCurrentDay, isSelected) => {
 const getStatusIndicator = (status) => {
   if (!status) return null;
   switch (status) {
-    case 'completed': return <div className="status-indicator completed" title="Completed" />;
-    case 'in-progress': return <div className="status-indicator in-progress" title="In Progress" />;
-    case 'missed': return <div className="status-indicator missed" title="Missed" />;
+    case 'Completed': return <div className="status-indicator completed" title="Completed" />;
+    case 'In Progress': return <div className="status-indicator in-progress" title="In Progress" />;
+    case 'Missed': return <div className="status-indicator missed" title="Missed" />;
     default: return null;
   }
 };
 
 export const Calendar = ({ currentMonth, onMonthChange, onDateSelect, challengeData, selectedDate }) => {
+
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   };
@@ -73,10 +74,10 @@ export const Calendar = ({ currentMonth, onMonthChange, onDateSelect, challengeD
     for (let day = 1; day <= daysInMonth; day++) {
       const dateStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const dayData = challengeData[dateStr];
-      const status = dayData?.status;
+      const status = dayData?.Status;
       const isCurrent = isCurrentDay(currentMonth.getFullYear(), currentMonth.getMonth(), day);
       const isSelected = isSelectedDay(currentMonth.getFullYear(), currentMonth.getMonth(), day, selectedDate);
-      
+
       days.push(
         <div
           key={`day-${day}`}

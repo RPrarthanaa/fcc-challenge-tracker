@@ -1,9 +1,27 @@
 // components/ChallengeDetails.js
-import { React } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { X, Calendar as CalendarIcon, Folder, FileText, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+import { calendarApi } from '../api/calendar';
 
 export const ChallengeDetails = ({ date, data, onClose }) => {
+
+  const handleAddChallenge = async (date) => {
+    try {
+      const response = await calendarApi.addChallenge(date, {
+        "title" : "Untitled Challenge",
+        "question" : "Enter the challenge question for the selected date",
+        "status" : "In Progress"
+      });
+      
+      if (response.data.success) {
+        console.log("Challenge successfully added");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const formatDate = (dateObj) => {
     return dateObj.toLocaleDateString('en-US', { 
@@ -23,15 +41,15 @@ export const ChallengeDetails = ({ date, data, onClose }) => {
 
   const getStatusConfig = (status) => {
     switch (status) {
-      case 'completed': return { icon: CheckCircle, label: 'Completed', color: '#22c55e' };
-      case 'in-progress': return { icon: Clock, label: 'In Progress', color: '#3b82f6' };
-      case 'missed': return { icon: AlertCircle, label: 'Missed', color: '#ef4444' };
+      case 'Completed': return { icon: CheckCircle, label: 'Completed', color: '#22c55e' };
+      case 'In Progress': return { icon: Clock, label: 'In Progress', color: '#3b82f6' };
+      case 'Missed': return { icon: AlertCircle, label: 'Missed', color: '#ef4444' };
       default: return { icon: FileText, label: 'No Activity', color: '#6b7280' };
     }
   };
 
-  const StatusIcon = data?.status ? getStatusConfig(data.status).icon : FileText;
-  const statusConfig = data?.status ? getStatusConfig(data.status) : { label: 'No Activity', color: '#6b7280' };
+  const StatusIcon = data?.Status ? getStatusConfig(data.Status).icon : FileText;
+  const statusConfig = data?.Status ? getStatusConfig(data.Status) : { label: 'No Activity', color: '#6b7280' };
 
   return (
     <div className="challenge-details">
@@ -53,22 +71,27 @@ export const ChallengeDetails = ({ date, data, onClose }) => {
           <span style={{ color: statusConfig.color }}>{statusConfig.label}</span>
         </div>
         
-        {data?.title ? (
+        {data?.Title ? (
           <>
             <div className="detail-item">
               <FileText size={18} />
               <strong>Challenge Title:</strong>
-              <span>{data.title}</span>
+              <span>{data.Title}</span>
             </div>
             
+            {/*
             <div className="detail-item">
               <Folder size={18} />
               <strong>Files Saved:</strong>
-              <span>{data.filesCount} files</span>
+              <span>{data.Editor.size} files</span>
             </div>
+            */}
 
             <div className="detail-item" style={{ justifyContent: 'center' }}>
-              <Link to={`/challenge/${longDate(date)}`} className="btn-primary">
+              <Link 
+                to={`/challenge/${longDate(date)}`} className="btn-primary"
+                state={{ existingPage: true }}
+              >
                 View Challenge
               </Link>
             </div>
@@ -76,9 +99,13 @@ export const ChallengeDetails = ({ date, data, onClose }) => {
         ) : (
           <div className="detail-item no-data">
             <p>No challenge logged for this day.</p>
-            <Link to={`/challenge/${longDate(date)}`} className="btn-primary">
-              Add Challenge
-            </Link>
+            <Link 
+                to={`/challenge/${longDate(date)}`} className="btn-primary"
+                state={{ existingPage: false }}
+                onClick={() => handleAddChallenge(longDate(date))}
+              >
+                Add Challenge
+              </Link>
           </div>
         )}
       </div>

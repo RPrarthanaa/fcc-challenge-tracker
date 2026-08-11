@@ -1,23 +1,30 @@
 // pages/CalendarPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar } from '../components/Calendar';
 import { ChallengeDetails } from '../components/ChallengeDetails';
 import { CalendarSummary } from '../components/CalendarSummary';
-
-// Mock data for challenge days
-const mockChallengeDays = {
-  '2026-06-01': { status: 'completed', title: 'Responsive Web Design', filesCount: 3 },
-  '2026-06-02': { status: 'completed', title: 'Basic CSS', filesCount: 2 },
-  '2026-06-03': { status: 'in-progress', title: 'JavaScript Algorithms', filesCount: 1 },
-  '2026-06-05': { status: 'missed', title: null, filesCount: 0 },
-  '2026-06-06': { status: 'completed', title: 'Front End Libraries', filesCount: 4 },
-  '2026-06-07': { status: 'in-progress', title: 'Data Visualization', filesCount: 2 },
-  '2026-06-08': { status: 'completed', title: 'APIs and Microservices', filesCount: 3 },
-};
+import { calendarApi } from '../api/calendar';
 
 export const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date()); // Current month
+  const [challenges, setChallenges] = useState({}); // Store challenges data
+
+  const fetchMonthData = async (month) => {
+    try {
+      const response = await calendarApi.getByMonth(month);
+      if (response.data.success) {
+        setChallenges(response.data.challenges);
+        console.log("Fetched month data:", response.data.challenges);
+      }
+    } catch (error) {
+      console.error("Error fetching month data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMonthData(String(currentMonth.getMonth()+1).padStart(2, '0'));
+  }, [currentMonth]);
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -47,16 +54,16 @@ export const CalendarPage = () => {
             currentMonth={currentMonth}
             onMonthChange={handleMonthChange}
             onDateSelect={handleDateSelect}
-            challengeData={mockChallengeDays}
+            challengeData={challenges}
             selectedDate={selectedDate}
           />
-          <CalendarSummary challengeData={mockChallengeDays} currentMonth={currentMonth} />
+          <CalendarSummary challengeData={challenges} currentMonth={currentMonth} />
         </div>
         
         {selectedDate && (
           <ChallengeDetails
             date={selectedDate}
-            data={mockChallengeDays[selectedDate.toISOString().split('T')[0]]}
+            data={challenges[`${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`]}
             onClose={handleCloseDetails}
           />
         )}
