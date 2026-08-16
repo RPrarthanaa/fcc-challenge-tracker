@@ -2,16 +2,25 @@
 import React from 'react';
 
 export const CalendarSummary = ({ challengeData, currentMonth }) => {
-  const monthKey = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
+  const totalDaysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth()+1,0).getDate();
+  const today = new Date();
   
-  const monthData = Object.entries(challengeData).filter(([key]) => key.startsWith(monthKey));
+  const completed = Object.values(challengeData).filter(challenge => challenge.Status === "Completed").length;
+  const inProgress = Object.values(challengeData).filter(challenge => challenge.Status === "In Progress").length;
   
-  const total = monthData.length;
-  const completed = monthData.filter(([_, data]) => data.status === 'completed').length;
-  const inProgress = monthData.filter(([_, data]) => data.status === 'in-progress').length;
-  const missed = monthData.filter(([_, data]) => data.status === 'missed').length;
-  
-  const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
+  let missed = 0;
+  let completionRate = 0;
+
+  const currentMonthIndex = currentMonth.getFullYear()*12 + currentMonth.getMonth();
+  const todayIndex = today.getFullYear()*12 + today.getMonth();
+
+  if (currentMonthIndex == todayIndex) { // current month
+    missed = today.getDate() - completed - inProgress - 1;
+    completionRate = (completed / today.getDate()) * 100;
+  } else if (currentMonthIndex < todayIndex) { // previous month
+    missed = totalDaysInMonth - completed - inProgress;
+    completionRate = (completed / totalDaysInMonth) * 100;
+  }
 
   return (
     <div className="calendar-summary">
@@ -31,7 +40,7 @@ export const CalendarSummary = ({ challengeData, currentMonth }) => {
         </div>
         <div className="summary-item">
           <span className="label">Completion Rate</span>
-          <span className="value">{completionRate}%</span>
+          <span className="value">{completionRate.toFixed(2)}%</span>
         </div>
       </div>
     </div>
