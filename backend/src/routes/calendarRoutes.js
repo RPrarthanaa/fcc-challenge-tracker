@@ -22,13 +22,13 @@ router.get("/calendar/all", async (req, res) => {
     }
 });
 
-// GET /api/calendar/:month
-router.get("/calendar/:month", async (req, res) => {
-    const { month } = req.params;
+// GET /api/calendar/:year:month
+router.get("/calendar/:year/:month", async (req, res) => {
+    const { year, month } = req.params;
 
     try {
-        const [rows] = await pool.query("SELECT DATE_FORMAT(date, '%Y-%m-%d') as Date, Title, Status FROM daily_challenges WHERE DATE_FORMAT(date, '%m') = ?",
-            [month]
+        const [rows] = await pool.query("SELECT DATE_FORMAT(date, '%Y-%m-%d') as Date, Title, Status FROM daily_challenges WHERE DATE_FORMAT(date, '%Y-%m') = ?",
+            [`${year}-${month}`]
         );
 
         const challenges = {};

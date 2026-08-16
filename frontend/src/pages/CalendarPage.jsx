@@ -10,9 +10,9 @@ export const CalendarPage = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date()); // Current month
   const [challenges, setChallenges] = useState({}); // Store challenges data
 
-  const fetchMonthData = async (month) => {
+  const fetchMonthData = async (year, month) => {
     try {
-      const response = await calendarApi.getByMonth(month);
+      const response = await calendarApi.getByMonth(year, month);
       if (response.data.success) {
         setChallenges(response.data.challenges);
         console.log("Fetched month data:", response.data.challenges);
@@ -23,7 +23,7 @@ export const CalendarPage = () => {
   };
 
   useEffect(() => {
-    fetchMonthData(String(currentMonth.getMonth()+1).padStart(2, '0'));
+    fetchMonthData(currentMonth.getFullYear(), String(currentMonth.getMonth()+1).padStart(2, '0'));
   }, [currentMonth]);
 
   const handleDateSelect = (date) => {
