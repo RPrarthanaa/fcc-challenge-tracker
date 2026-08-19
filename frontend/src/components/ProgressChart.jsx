@@ -1,7 +1,7 @@
 // components/ProgressChart.js
 import React from 'react';
 
-export const ProgressChart = ({ completionRate }) => {
+export const ProgressChart = ({ completionRate, thisWeek, goal }) => {
   return (
     <div className="progress-chart">
       <h3>Progress Overview</h3>
@@ -18,11 +18,11 @@ export const ProgressChart = ({ completionRate }) => {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem', borderRadius: '0.5rem' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>This Week</div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 600 }}>5 {/* test value */}</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 600 }}>{thisWeek}</div>
           </div>
           <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem', borderRadius: '0.5rem' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Goal Progress</div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 600 }}>65% {/* test value */}</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 600 }}>{goal}</div>
           </div>
         </div>
       </div>
