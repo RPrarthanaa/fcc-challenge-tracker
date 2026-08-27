@@ -1,6 +1,6 @@
 // pages/Dashboard.js
 import React, { useState, useEffect } from 'react';
-import { Trophy, Calendar, Folder, Flame, Award, TrendingUp } from 'lucide-react';
+import { Trophy, Calendar, CalendarX , Hourglass, TrendingUp } from 'lucide-react';
 import { StatCard } from '../components/StatCard';
 import { ProgressChart } from '../components/ProgressChart';
 import { RecentActivity } from '../components/RecentActivity';
@@ -13,24 +13,24 @@ export const Dashboard = () => {
   const totalDays = Math.floor((new Date() - new Date("2025-08-17")) / (1000 * 60 * 60 * 24));
 
   const [ totalCompleted, setTotalChallenges ] = useState(0);
+  const [ totalInProgress, setTotalInProgress ] = useState(0);
   const [ thisWeek, setThisWeek ] = useState(0);
   const [ thisMonth, setThisMonth ] = useState(0);
   const [ completionRate, setCompletionRate ] = useState(0);
   const [ lastPosted, setLastPosted ] = useState();
-
 
   const fetchMainStats = async () => {
     try {
       const response = await dashboardApi.getMainStats();
 
       if (response.data.success) {
-        const completed = response.data.stats.totalCompleted;
-        setTotalChallenges(completed);
-        setThisWeek(response.data.stats.thisWeek);
-        setThisMonth(response.data.stats.thisMonth);
-        setLastPosted(response.data.stats.lastActivityDate);
-        setCompletionRate(((completed / totalDays) * 100).toFixed(2));
-
+        const stats = response.data.stats;
+        setTotalChallenges(stats.totalCompleted);
+        setTotalInProgress(stats.totalInProgress);
+        setThisWeek(stats.thisWeek);
+        setThisMonth(stats.thisMonth);
+        setLastPosted(stats.lastActivityDate);
+        setCompletionRate(((stats.totalCompleted / totalDays) * 100).toFixed(2));
       }
     } catch (error) {
       console.log("Error fetching main stats:", error);
@@ -64,6 +64,20 @@ export const Dashboard = () => {
           icon={<Trophy size={24} />}
           trend={`+${thisWeek} this week`}
           color="primary"
+        />
+        <StatCard
+          title="Total Challenges Missed"
+          value={totalDays-totalCompleted-totalInProgress}
+          icon={<CalendarX  size={24} />}
+          trend={`/ ${totalDays} days`}
+          color="red"
+        />
+        <StatCard
+          title="Total Challenges In Progress"
+          value={totalInProgress}
+          icon={<Hourglass  size={24} />}
+          trend={`/ ${totalDays} days`}
+          color="yellow"
         />
         <StatCard
           title="Challenges This Month"

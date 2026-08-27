@@ -5,7 +5,8 @@ const colorStyles = {
   primary: { bg: 'rgba(99, 102, 241, 0.1)', iconBg: '#6366f1' },
   blue: { bg: 'rgba(59, 130, 246, 0.1)', iconBg: '#3b82f6' },
   purple: { bg: 'rgba(139, 92, 246, 0.1)', iconBg: '#8b5cf6' },
-  orange: { bg: 'rgba(249, 115, 22, 0.1)', iconBg: '#f97316' },
+  red: { bg: 'rgba(249, 22, 22, 0.1)', iconBg: '#f91616' },
+  yellow: { bg: 'rgba(255, 238, 0, 0.1)', iconBg: '#cccf0e' },
   green: { bg: 'rgba(34, 197, 94, 0.1)', iconBg: '#22c55e' },
   teal: { bg: 'rgba(20, 184, 166, 0.1)', iconBg: '#14b8a6' },
 };

@@ -26,6 +26,11 @@ router.get("/dashboard/main-stats", async(req, res) => {
             FROM daily_challenges 
             WHERE Status = 'Completed'`);
 
+        const [inProgressRows] = await pool.query(`
+            SELECT COUNT(*) AS count
+            FROM daily_challenges
+            WHERE Status = 'In Progress'`);
+
         const [weekRows] = await pool.query(`
             SELECT COUNT(*) AS count
             FROM daily_challenges
@@ -46,6 +51,7 @@ router.get("/dashboard/main-stats", async(req, res) => {
             success: true,
             stats: {
                 totalCompleted: completedRows[0].count,
+                totalInProgress: inProgressRows[0].count,
                 thisWeek: weekRows[0].count,
                 thisMonth: monthRows[0].count,
                 lastActivityDate: lastDate[0].Date
