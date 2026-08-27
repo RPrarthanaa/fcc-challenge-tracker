@@ -13,6 +13,9 @@ app.use("/api", challengeRoutes);
 const calendarRoutes = require("./routes/calendarRoutes");
 app.use("/api", calendarRoutes);
 
+const dashboardRoutes = require("./routes/dashboardRoutes");
+app.use("/api", dashboardRoutes);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

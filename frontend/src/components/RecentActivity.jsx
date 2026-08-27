@@ -1,12 +1,7 @@
 // components/RecentActivity.js
 import React from "react";
 
-export const RecentActivity = () => {
-  const activities = [
-    { id: 1, title: "Last Posted On", date: "10-02-2026", status: "on-track" },
-  ];
-
-  const activity = activities[0];
+export const RecentActivity = ( {lastPosted, status} ) => { 
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -44,9 +39,9 @@ export const RecentActivity = () => {
           alignItems: "center",
         }}
       >
-        <span>{activity.title}</span>
+        <span>Last Posted On</span>
         <span style={{ color: "var(--text-secondary)", fontSize: "0.875rem" }}>
-          {activity.date}
+          {lastPosted}
         </span>
       </div>
 
@@ -66,11 +61,11 @@ export const RecentActivity = () => {
             borderRadius: "10px",
             fontWeight: "bold",
             color: "white",
-            backgroundColor: getStatusColor(activity.status),
+            backgroundColor: getStatusColor(status),
             letterSpacing: "1px",
           }}
         >
-          {getStatusText(activity.status)}
+          {getStatusText(status)}
         </div>
       </div>
     </div>
