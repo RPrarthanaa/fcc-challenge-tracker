@@ -61,6 +61,22 @@ router.put("/challenge/:date", async (req, res) => {
                 success: true,
                 message: `Challenge question updated for date ${date}`
             });
+
+        } else if (key === "Editor") {
+            result = await pool.query(`
+                UPDATE daily_challenges 
+                SET Editor = JSON_SET(Editor, ?, ?) 
+                WHERE Date = ?`,
+                [
+                    `$.${value.language}`,
+                    value.code,
+                    date
+                ]
+            );
+            res.json({
+                success: true,
+                message: `Challenge code updated for ${value.language} on ${date}`
+            })
         }
     } catch (error) {
         console.error(error);
