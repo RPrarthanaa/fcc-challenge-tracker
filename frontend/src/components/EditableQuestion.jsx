@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { challengeApi } from '../api/challenge';
 
 export const EditableQuestion = ({ initialQuestion, date, onQuestionUpdate, isEditing, setIsEditing }) => {

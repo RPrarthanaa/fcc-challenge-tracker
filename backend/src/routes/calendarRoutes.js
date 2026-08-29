@@ -54,9 +54,13 @@ router.get("/calendar/:year/:month", async (req, res) => {
 router.post("/calendar/:date", async (req, res) => {
     const { date } = req.params;
     const { title, question, status } = req.body;
+    const editor = {
+        "Javascript" : "",
+        "Python" : ""
+    };
 
     try {
-        const [result] = await pool.query("INSERT INTO daily_challenges (Date, Title, Question, Status) VALUES (?, ?, ?, ?)", [date, title, question, status]);
+        const [result] = await pool.query("INSERT INTO daily_challenges (Date, Title, Question, Status, Editor) VALUES (?, ?, ?, ?, ?)", [date, title, question, status, JSON.stringify(editor)]);
 
         res.json({
             success: true,

@@ -679,7 +679,7 @@ body {
 /* Add a subtle animation for the edit button */
 .edit-btn {
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.3rem;
   border-radius: 50%;
   transition: all 0.2s ease;
   display: flex;
@@ -694,6 +694,10 @@ body {
 
 .edit-btn:active {
   transform: scale(0.95);
+}
+
+.edit-active {
+  color: var(--primary-color);
 }
 
 .header-text {
@@ -755,6 +759,16 @@ body {
   justify-content: space-between;
 }
 
+.code-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.code-card-title h3 {
+  margin: 0;
+}
+
 .copy-btn {
   border: none;
   background: none;
@@ -774,6 +788,26 @@ body {
   color: #727275;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.code-card-textarea {
+  width: 100%;
+  font-family: monospace;
+  font-size: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.code-card-body code {
+  background: none;
 }
 
 .status-btn {

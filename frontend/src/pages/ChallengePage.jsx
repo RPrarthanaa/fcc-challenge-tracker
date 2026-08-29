@@ -8,14 +8,13 @@ import { EditableQuestion } from '../components/EditableQuestion';
 
 export const ChallengePage = () => {
   const { date } = useParams();
-  const location = useLocation();
-  const existingPage = location.state?.existingPage || false;
 
   const [ title, setTitle ] = useState('');
   const [ question, setQuestion ] = useState('');
   const [ status, setStatus ] = useState('In Progress');
   const [ isEditingTitle, setIsEditingTitle ] = useState(false);
   const [ isEditingQuestion, setIsEditingQuestion ] = useState(false);
+  const [ editor, setEditor ] = useState({});
   //const [ javaScript, setJavaScript ] = useState('');
   //const [ python, setPython ] = useState('');
 
@@ -27,6 +26,7 @@ export const ChallengePage = () => {
         setTitle(challenge.Title || '');
         setQuestion(challenge.Question || '');
         setStatus(challenge.Status);
+        setEditor(challenge.Editor);
         // setJavaScript(challenge.JavaScript || '');
         // setPython(challenge.Python || '');
       }
@@ -117,8 +117,11 @@ export const ChallengePage = () => {
         </div>
         
         <div className="challenge-code">
-          <CodeCard language={"Javascript"} code={"// Your JavaScript code here"}/>
-          <CodeCard language={"Python"} code={"# Your Python code here"}/>
+          {Object.entries(editor).map(([key,value]) => {
+            return (
+              <CodeCard language={key} initialCode={value || `Enter Your ${key} Code Here`} date={date} />
+            );
+          })}
         </div>
       </div>
 
