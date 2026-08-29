@@ -15,8 +15,6 @@ export const ChallengePage = () => {
   const [ isEditingTitle, setIsEditingTitle ] = useState(false);
   const [ isEditingQuestion, setIsEditingQuestion ] = useState(false);
   const [ editor, setEditor ] = useState({});
-  //const [ javaScript, setJavaScript ] = useState('');
-  //const [ python, setPython ] = useState('');
 
   const fetchChallengeData = async () => {
     try {
@@ -27,8 +25,6 @@ export const ChallengePage = () => {
         setQuestion(challenge.Question || '');
         setStatus(challenge.Status);
         setEditor(challenge.Editor);
-        // setJavaScript(challenge.JavaScript || '');
-        // setPython(challenge.Python || '');
       }
     } catch (error) {
       console.error("Error fetching challenge data:", error);

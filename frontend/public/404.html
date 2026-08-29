@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+
+    <script>
+      const path = window.location.pathname;
+
+      const repo = "/fcc-challenge-tracker";
+
+      const route = path.startsWith(repo)
+        ? path.slice(repo.length)
+        : path;
+
+      window.location.replace(
+        repo + "/?redirect=" + encodeURIComponent(route)
+      );
+    </script>
+  </head>
+
+  <body>
+    Redirecting...
+  </body>
+</html>
