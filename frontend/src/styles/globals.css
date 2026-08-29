@@ -716,6 +716,8 @@ body {
   align-items: center;
   justify-content: space-between;
   padding-left: 1rem;
+  width: 100%;
+  gap: 1rem;
 }
 .back-btn {
   cursor: pointer;
@@ -735,12 +737,15 @@ body {
   min-width: 0;
 }
 .question-input-editable {
-  flex: 1;
-  min-width: 0;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
+  resize: vertical;
 }
 
 .code-card {

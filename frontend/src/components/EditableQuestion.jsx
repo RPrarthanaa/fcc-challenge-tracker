@@ -14,12 +14,21 @@ export const EditableQuestion = ({ initialQuestion, date, onQuestionUpdate, isEd
   useEffect(() => {
     if (isEditing && textareaRef.current) {
       textareaRef.current.focus();
-      textareaRef.current.select();
+      const val = textareaRef.current.value;
+      textareaRef.current.setSelectionRange(val.length, val.length);
+      autoResize();
     }
   }, [isEditing]);
 
+  const autoResize = () => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
+  };
+
   const handleSave = async () => {
-    const trimmedQuestion = tempQuestion.trim();
+    const trimmedQuestion = tempQuestion.replace(/^\s+|\s+$/g, '');
     if (!trimmedQuestion) {
       setTempQuestion(question);
       setIsEditing(false);
@@ -28,8 +37,8 @@ export const EditableQuestion = ({ initialQuestion, date, onQuestionUpdate, isEd
 
     try {
       const response = await challengeApi.updateChallenge(date, {
-          key: 'Question',
-          value: trimmedQuestion
+        key: 'Question',
+        value: trimmedQuestion
       });
 
       if (response.data.success) {
@@ -44,9 +53,15 @@ export const EditableQuestion = ({ initialQuestion, date, onQuestionUpdate, isEd
     }
   };
 
+  const handleChange = (e) => {
+    setTempQuestion(e.target.value);
+    autoResize();
+  };
+
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault(); // Prevents adding a new line
+    // Save with Ctrl+Enter / Cmd+Enter.
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
       handleSave();
     } else if (e.key === 'Escape') {
       setTempQuestion(question);
@@ -56,22 +71,26 @@ export const EditableQuestion = ({ initialQuestion, date, onQuestionUpdate, isEd
 
   const handleBlur = () => {
     handleSave();
-  }
+  };
 
   if (isEditing) {
     return (
-      <input
+      <textarea
         ref={textareaRef}
-        type="text"
         value={tempQuestion}
-        onChange={(e) => setTempQuestion(e.target.value)}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
         className="question-input-editable"
         placeholder="Enter challenge question..."
+        rows={1}
       />
     );
   }
 
-  return <p className="question-display">{question || 'Enter the challenge question for the selected date.'}</p>
-}
+  return (
+    <p className="question-display" style={{ whiteSpace: 'pre-wrap' }}>
+      {question || 'Enter the challenge question for the selected date.'}
+    </p>
+  );
+};
