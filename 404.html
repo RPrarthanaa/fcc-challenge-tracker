@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8">
     <script>
-      const pathSegmentsToKeep = 1;
-
-      const l = window.location;
-      const repo = l.pathname.split('/').slice(0, pathSegmentsToKeep + 1).join('/');
-
-      l.replace(
-        l.protocol + '//' + l.hostname +
-        (l.port ? ':' + l.port : '') +
-        repo + '/?/' +
-        l.pathname.slice(repo.length + 1).replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
+      // Redirect to index.html, preserving the path in a query string
+      var path = window.location.pathname + window.location.search + window.location.hash;
+      window.location.replace(
+        window.location.origin + '/YOUR_REPO_NAME/?redirect=' + encodeURIComponent(path)
       );
     </script>
   </head>
-  <body>
-  </body>
+  <body></body>
 </html>

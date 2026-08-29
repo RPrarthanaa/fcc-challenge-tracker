@@ -7,12 +7,9 @@
     <title>fcc-challenge-tracker</title>
     <script>
       (function () {
-        const redirect = sessionStorage.redirect;
-
-        delete sessionStorage.redirect;
-
-        if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect);
+        var redirect = new URLSearchParams(window.location.search).get('redirect');
+        if (redirect) {
+          window.history.replaceState(null, '', redirect);
         }
       })();
     </script>
