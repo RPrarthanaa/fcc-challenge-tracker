@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+
     <script>
-      // Redirect to index.html, preserving the path in a query string
-      var path = window.location.pathname + window.location.search + window.location.hash;
+      const path = window.location.pathname;
+
+      const repo = "/fcc-challenge-tracker";
+
+      const route = path.startsWith(repo)
+        ? path.slice(repo.length)
+        : path;
+
       window.location.replace(
-        window.location.origin + '/YOUR_REPO_NAME/?redirect=' + encodeURIComponent(path)
+        repo + "/?redirect=" + encodeURIComponent(route)
       );
     </script>
   </head>
-  <body></body>
+
+  <body>
+    Redirecting...
+  </body>
 </html>
