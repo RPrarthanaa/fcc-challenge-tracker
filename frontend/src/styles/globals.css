@@ -813,6 +813,9 @@ body {
 
 .code-card-body code {
   background: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .status-btn {
