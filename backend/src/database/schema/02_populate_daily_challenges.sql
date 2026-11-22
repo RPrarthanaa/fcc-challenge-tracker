@@ -1,0 +1,33 @@
+INSERT INTO daily_challenges  VALUES
+('2026-06-01', 'Challenge 1', 'Your question for June 1', '{}', 'Completed'),
+('2026-06-02', 'Challenge 2', 'Your question for June 2', '{}', 'Completed'),
+('2026-06-03', 'Challenge 3', 'Your question for June 3', '{}', 'Completed'),
+('2026-06-04', 'Challenge 4', 'Your question for June 4', '{}', 'Completed'),
+('2026-06-09', 'Challenge 9', 'Your question for June 9', '{}', 'Completed'),
+('2026-06-16', 'Challenge 16', 'Your question for June 16', '{}', 'Completed'),
+('2026-06-17', 'Challenge 17', 'Your question for June 17', '{}', 'Completed'),
+('2026-06-18', 'Challenge 18', 'Your question for June 18', '{}', 'Completed'),
+('2026-06-19', 'Challenge 19', 'Your question for June 19', '{}', 'Completed'),
+('2026-07-06', 'Challenge 36', 'Your question for July 6', '{}', 'Completed'),
+('2026-07-07', 'Challenge 37', 'Your question for July 7', '{}', 'Completed'),
+('2026-07-08', 'Challenge 38', 'Your question for July 8', '{}', 'Completed'),
+('2026-07-09', 'Challenge 39', 'Your question for July 9', '{}', 'Completed'),
+('2026-07-10', 'Challenge 40', 'Your question for July 10', '{}', 'Completed'),
+('2026-07-11', 'Challenge 41', 'Your question for July 11', '{}', 'Completed'),
+('2026-07-12', 'Challenge 42', 'Your question for July 12', '{}', 'Completed'),
+('2026-07-13', 'Challenge 43', 'Your question for July 13', '{}', 'Completed'),
+('2026-07-14', 'Challenge 44', 'Your question for July 14', '{}', 'Completed'),
+('2026-07-15', 'Challenge 45', 'Your question for July 15', '{}', 'Completed'),
+('2026-07-16', 'Challenge 46', 'Your question for July 16', '{}', 'Completed'),
+('2026-07-29', 'Challenge 59', 'Your question for July 29', '{}', 'Completed'),
+('2026-07-30', 'Challenge 60', 'Your question for July 30', '{}', 'Completed'),
+('2026-07-31', 'Challenge 61', 'Your question for July 31', '{}', 'Completed'),
+('2026-08-01', 'Challenge 62', 'Your question for August 1', '{}', 'Completed'),
+('2026-08-02', 'Challenge 63', 'Your question for August 2', '{}', 'Completed'),
+('2026-08-03', 'Challenge 64', 'Your question for August 3', '{}', 'Current Day')
+
+ON DUPLICATE KEY UPDATE
+    title = VALUES(Title),
+    question = VALUES(Question),
+    editor = VALUES(Editor),
+    status = VALUES(Status);
