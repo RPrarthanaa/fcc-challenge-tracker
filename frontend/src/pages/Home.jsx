@@ -13,11 +13,11 @@ export const Home = () => {
             <span>FreeCodeCamp Tracker</span>
           </div>
           <h1 className="hero-title">
-            Track Your <span className="gradient-text">FreeCodeCamp</span> Journey
+            Track Your <span className="gradient-text">FreeCodeCamp</span> Daily Challenges
           </h1>
           <p className="hero-subtitle">
-            Organize your daily challenges, monitor progress, track coding streaks, 
-            and keep a record of every project and file you create.
+            Organize your daily challenges, monitor monthly and overall progress, 
+            and keep a record of every project and file you create for each day.
           </p>
           <div className="hero-buttons">
             <Link to="/dashboard" className="btn-primary">
